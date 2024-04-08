@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Heebo&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:wght@100;200;300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+body {
+  overflow-x: hidden;
+}
+.inputs {
+  border: 1px solid rgb(100, 100, 100);
+  outline: none;
+  padding: 5px 3px;
+  color: black;
+}
+
+.delete-button {
+  display: none;
+}
+
+.delete-button-container:hover .delete-button {
+  display: block;
+}
+.black-scroll::-webkit-scrollbar {
+  width: 16px;
+}
+
+/* Track */
+.black-scroll::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+.black-scroll::-webkit-scrollbar-thumb {
+  background: rgb(110, 110, 110);
+  border-radius: 10px;
+}
+
+.white-scroll::-webkit-scrollbar {
+  width: 16px;
+}
+
+/* Track */
+.white-scroll::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* Handle */
+.white-scroll::-webkit-scrollbar-thumb {
+  background: rgb(110, 110, 110);
+  border-radius: 10px;
+}
