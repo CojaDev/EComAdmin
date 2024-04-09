@@ -25,6 +25,7 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  secret: process.env.SECRET,
   callbacks: {
     session: ({ session, token, user }) => {
       if (emails.includes(session?.user?.email)) {
