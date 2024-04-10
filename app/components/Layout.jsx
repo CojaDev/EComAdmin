@@ -13,12 +13,15 @@ export default function Layout({ children }) {
   const [Firsttime, setFirsttime] = useState(true);
   useEffect(() => {
     axios.get('/api/store').then((response) => {
-      if (response.data.length <= 0) {
+      if (response?.data) {
         setFirsttime(true);
+        console.log('true' + response.data);
       } else {
         setFirsttime(false);
+        console.log('false' + response.data);
       }
       setTimeout(() => setLoading(false), 200);
+      console.log(response.data);
     });
   }, []);
 
@@ -34,7 +37,7 @@ export default function Layout({ children }) {
           />
         ) : (
           <>
-            {!Firsttime ? (
+            {Firsttime === true ? (
               <main className=" sm:pl-[15rem] pl-[3.55rem] w-screen h-screen  bg-slate-200/10 overflow-x-hidden flex">
                 <Nav />
                 {children}

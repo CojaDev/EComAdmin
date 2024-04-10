@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { useState } from 'react';
-
+import { Currency } from '../constants/Currency';
+import { toast } from 'react-hot-toast';
 const FirstTime = () => {
   const [steps, setSteps] = useState(0);
   const [storeDetails, setStoreDetails] = useState({
     name: '',
     description: '',
     address: '',
-    currency: '',
+    currency: 'EUR',
     admins: [],
     fb: '',
     ig: '',
@@ -31,6 +32,7 @@ const FirstTime = () => {
       await axios.post('/api/store', storeDetails);
       window.location.reload();
     } catch (error) {
+      toast.error('Enter all Data!');
       console.log(error);
     }
   };
@@ -130,15 +132,19 @@ const FirstTime = () => {
                       className="bg-white text-black inputs  sm:!p-1.5 !p-2  sm:w-96 w-full"
                     />
                     <p>Currency:</p>
-                    <input
-                      type="text"
+                    <select
+                      className="bg-white text-black inputs  sm:!p-1.5 !p-2  sm:w-96 w-full"
                       name="currency"
                       value={storeDetails.currency}
                       onChange={handleChange}
-                      placeholder="Currency"
-                      required
-                      className="bg-white text-black inputs  sm:!p-1.5 !p-2  sm:w-96 w-full"
-                    />
+                    >
+                      {Currency.map((currency, index) => (
+                        <option key={index} value={currency.code}>
+                          {currency.code} - {currency.name}
+                        </option>
+                      ))}
+                    </select>
+
                     <p>Description:</p>
                     <textarea
                       type="text"

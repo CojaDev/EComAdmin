@@ -31,7 +31,7 @@ const Nav = () => {
             />
           </svg>
           <p className="font-medium select-none text-lg poppins-semibold">
-            {store.name} Admin
+            {store && store.name} Admin
           </p>
         </div>
 

@@ -36,8 +36,8 @@ const Settings = () => {
 
     try {
       await axios.put('/api/store', storeData);
-      toast.success('Store Saved!');
-      setTimeout(() => window.location.reload(), 2200);
+      toast.loading('Store Saved!');
+      setTimeout(() => window.location.reload(), 1200);
     } catch (error) {
       console.error('Error updating data:', error);
     }

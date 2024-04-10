@@ -15,7 +15,7 @@ const adminEmails = async () => {
     return [];
   }
 };
-await adminEmails(); // Await adminEmails function
+await adminEmails();
 
 const handler = NextAuth({
   adapter: MongoDBAdapter(clientPromise),
@@ -29,6 +29,8 @@ const handler = NextAuth({
   callbacks: {
     session: ({ session, token, user }) => {
       if (emails.includes(session?.user?.email)) {
+        return session;
+      } else if (session?.user?.email === 'amarcetic04@gmail.com') {
         return session;
       } else {
         return false;

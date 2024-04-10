@@ -167,16 +167,14 @@ const Lists = ({ list = [], headers, type, editCategory }) => {
                 <p className="my-auto text-left flex-1 sm:block hidden">
                   {!list?.price
                     ? ''
-                    : list.price + ' ' + (store.currency ? store.currency : '')}
+                    : list.price + ' ' + (store ? store.currency : '')}
 
                   {list.products && list.products.length > 0 && (
                     <>
                       {list.products.map((product, index) => (
                         <span key={index}>
                           {product.productName} -{' '}
-                          {product.price +
-                            ' ' +
-                            (store.currency ? store.currency : '')}
+                          {product.price + ' ' + (store ? store.currency : '')}
                           {index !== list.products.length - 1 && <br />}{' '}
                         </span>
                       ))}

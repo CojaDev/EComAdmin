@@ -10,12 +10,12 @@ const storeSchema = new Schema({
   },
   description: {
     type: String,
-    required: false,
+    required: true,
     trim: true,
   },
   address: {
     type: String,
-    required: true,
+    required: false,
     trim: true,
   },
   currency: {
