@@ -30,6 +30,7 @@ export default function Home() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
     if (Image === '') {
       toast.error('Add Image');
       return;

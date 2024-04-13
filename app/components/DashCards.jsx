@@ -7,6 +7,7 @@ import { Chart as ChartJS } from 'chart.js/auto';
 const DashCards = () => {
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [store, setStore] = useState([]);
   const [data, setData] = useState({
     labels: [
       'January',
@@ -36,6 +37,11 @@ const DashCards = () => {
   useEffect(() => {
     axios.get('/api/products').then((response) => {
       setProducts(response.data);
+    });
+  }, []);
+  useEffect(() => {
+    axios.get('/api/store').then((response) => {
+      setStore(response.data);
     });
   }, []);
   useEffect(() => {
@@ -108,7 +114,8 @@ const DashCards = () => {
         <div className="card flex flex-col sm:p-9 p-5 px-1 w-full items-center justify-center  flex-1 border border-black h-full">
           <h5 className="text-center text-lg opacity-90 -mt-2">Revenue</h5>
           <h2 className="sm:text-5xl text-3xl text-center">
-            <span className="text-green-500">{countRev}</span> RSD
+            <span className="text-green-500">{countRev}</span>{' '}
+            {store && store.currency}
           </h2>
         </div>
 

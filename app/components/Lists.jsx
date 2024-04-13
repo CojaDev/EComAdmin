@@ -10,6 +10,7 @@ const Lists = ({ list = [], headers, type, editCategory }) => {
   const [productsPerPage, setProductsPerPage] = useState(8);
   const [searchQuery, setSearchQuery] = useState('');
   const [store, setStore] = useState([]);
+  const [orderStatus, setOrderStatus] = useState({});
 
   useEffect(() => {
     axios.get('/api/store').then((response) => {
@@ -22,6 +23,16 @@ const Lists = ({ list = [], headers, type, editCategory }) => {
     if (window.innerWidth < 1150) setProductsPerPage(14);
     if (window.innerWidth < 768) setProductsPerPage(8);
   }, [productsPerPage]);
+
+  useEffect(() => {
+    // Initialize order status state for each order
+    const initialOrderStatus = {};
+    list.forEach((order) => {
+      initialOrderStatus[order._id] = order.status || 'Paid';
+    });
+    setOrderStatus(initialOrderStatus);
+  }, [list]);
+
   const totalPages = Math.ceil(list.length / productsPerPage);
 
   // Calculate index of the first and last product to display on current page
@@ -41,7 +52,7 @@ const Lists = ({ list = [], headers, type, editCategory }) => {
   const deleteCategory = async (_id) => {
     try {
       await axios.delete('/api/categories/' + _id);
-      toast.success('Category Deleted!');
+      toast.success('Category is Deleted!');
       setTimeout(() => {
         window.location.reload();
       }, 1000);
@@ -49,6 +60,34 @@ const Lists = ({ list = [], headers, type, editCategory }) => {
       console.error('Error deleting category:', error);
     }
   };
+  const handleOrderDelete = async (_id) => {
+    try {
+      await axios.delete('/api/orders/' + _id);
+      toast.success('Order is Deleted!');
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (error) {
+      console.error('Error deleting Order:', error);
+    }
+  };
+
+  const handleChange = async (e, orderId) => {
+    const newStatus = e.target.value;
+    try {
+      await axios.put(`/api/orders`, { _id: orderId, status: newStatus });
+      toast.success('Order status updated successfully!');
+      // Update order status state
+      setOrderStatus((prevStatus) => ({
+        ...prevStatus,
+        [orderId]: newStatus,
+      }));
+    } catch (error) {
+      console.error('Error updating order status:', error);
+      toast.error('Failed to update order status');
+    }
+  };
+
   return (
     <div className="px-3 sm:px-0 w-full">
       <div className="mx-auto my-2 w-full md:w-[98.48%] border border-black ">
@@ -186,19 +225,28 @@ const Lists = ({ list = [], headers, type, editCategory }) => {
                   {type === 'Orders' && list?.created ? list.created : ''}
                 </p>
                 {type === 'Orders' && list?.status ? (
-                  <p
-                    className={`my-auto text-left flex-1 lg:block hidden font-medium ${
-                      list.status === 'Paid'
-                        ? 'text-orange-400'
-                        : list.status === 'Shipped'
-                        ? 'text-green-500'
-                        : list.status === 'Canceled'
-                        ? 'text-red-500'
-                        : ''
-                    }`}
-                  >
-                    {list.status}
-                  </p>
+                  <div className="my-auto text-left flex-1 lg:block hidden font-medium">
+                    <select
+                      className={`  w-2/4 p-1 b outline  focus:outline-none focus:border border-black ${
+                        orderStatus[list._id] === 'Paid'
+                          ? 'text-orange-400'
+                          : orderStatus[list._id] === 'Shipped'
+                          ? 'text-orange-400'
+                          : orderStatus[list._id] === 'Delivered'
+                          ? 'text-green-400'
+                          : orderStatus[list._id] === 'Canceled'
+                          ? 'text-red-500'
+                          : ''
+                      }`}
+                      value={orderStatus[list._id]}
+                      onChange={(e) => handleChange(e, list._id)}
+                    >
+                      <option value="Paid">Paid</option>
+                      <option value="Shipped">Shipped</option>
+                      <option value="Delivered">Delivered</option>
+                      <option value="Canceled">Canceled</option>
+                    </select>
+                  </div>
                 ) : null}
 
                 {type === 'Product' && (
@@ -226,11 +274,12 @@ const Lists = ({ list = [], headers, type, editCategory }) => {
                   </Link>
                 )}
                 {type === 'Orders' && (
-                  <Link
-                    className="bg-green-400 border flex gap-1 border-black select-none hover:opacity-85 p-2 sm:py-1.5 py-2.5 transition-all active:scale-95"
+                  <button
+                    className=" ml-[1.8rem] mr-[0.1rem] bg-red-500 border flex gap-1 border-black select-none hover:opacity-85  transition-opacity  sm:p-2 p-3 px-2"
                     draggable={false}
-                    href={`/products/[product]`}
-                    as={'/products/' + list._id}
+                    onClick={() => {
+                      handleOrderDelete(list._id);
+                    }}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -238,16 +287,15 @@ const Lists = ({ list = [], headers, type, editCategory }) => {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-5 h-5"
+                      className="w-[1.45rem] h-[1.45rem]"
                     >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                        d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
                       />
                     </svg>
-                    Edit
-                  </Link>
+                  </button>
                 )}
                 {type === 'Category' && (
                   <>

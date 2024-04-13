@@ -21,6 +21,7 @@ updateIndexes();
 export async function GET(req) {
   try {
     await mongooseConnect();
+    await updateIndexes();
     const products = await Product.find();
     return NextResponse.json(products);
   } catch (error) {
@@ -72,7 +73,6 @@ export async function PUT(request) {
   try {
     await mongooseConnect();
     const formData = await request.formData();
-
     const name = formData.get('name');
     const description = formData.get('description');
     const price = formData.get('price');
@@ -83,9 +83,7 @@ export async function PUT(request) {
     const sizes = formData.getAll('sizes');
     const sizesArray = sizes.flatMap((sizesString) => sizesString.split(','));
     const _id = formData.get('_id');
-
     const images = formData.getAll('images');
-
     const imagesArray = images.flatMap((imageString) => imageString.split(','));
 
     await Product.updateOne(

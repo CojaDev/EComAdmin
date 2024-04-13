@@ -2,9 +2,24 @@ import Orders from '../../models/Orders';
 import { mongooseConnect } from '../../../lib/mongoose';
 import { NextResponse } from 'next/server';
 
+const updateIndexes = async () => {
+  try {
+    const products = await Orders.find().sort({ _id: 1 });
+    for (let i = 0; i < products.length; i++) {
+      products[i].index = i;
+      await products[i].save();
+    }
+  } catch (error) {
+    console.error('Error updating indexes:', error);
+  }
+};
+
+// Call the function to update indexes
+updateIndexes();
 export async function GET(request) {
   try {
     await mongooseConnect();
+    await updateIndexes();
     const order = await Orders.find();
     return NextResponse.json(order);
   } catch (error) {
@@ -57,7 +72,7 @@ export async function PUT(request) {
     await mongooseConnect();
     const { _id, ...updatedFields } = await request.json();
 
-    const order = await Order.findById(_id);
+    const order = await Orders.findById(_id);
 
     if (!order) {
       return NextResponse.json({ message: 'Order not found' }, { status: 404 });
@@ -65,7 +80,7 @@ export async function PUT(request) {
 
     // Update the Order if any fields have changed
     if (Object.keys(updatedFields).length > 0) {
-      await Order.updateOne({ _id: _id }, updatedFields);
+      await Orders.updateOne({ _id: _id }, updatedFields);
       return NextResponse.json({ message: 'Order edited successfully' });
     } else {
       return NextResponse.json({ message: 'No changes detected' });

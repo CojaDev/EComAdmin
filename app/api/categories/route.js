@@ -2,10 +2,22 @@ import { mongooseConnect } from '../../../lib/mongoose';
 import { NextResponse } from 'next/server';
 import Category from '../../models/Category';
 import Product from '../../models/Product';
+const updateIndexes = async () => {
+  try {
+    const products = await Category.find().sort({ _id: 1 });
+    for (let i = 0; i < products.length; i++) {
+      products[i].index = i;
+      await products[i].save();
+    }
+  } catch (error) {
+    console.error('Error updating indexes:', error);
+  }
+};
 
 export async function GET(req) {
   try {
     await mongooseConnect();
+    await updateIndexes();
     const products = await Category.find();
     return NextResponse.json(products);
   } catch (error) {
@@ -37,16 +49,37 @@ export async function POST(request) {
     );
   }
 }
+
 export async function PUT(request) {
   await mongooseConnect();
   try {
     const { name, images, _id } = await request.json();
 
     // Update the category
-    await Category.updateOne({ _id: _id }, { name, images });
+    const updatedCategory = await Category.findByIdAndUpdate(_id, {
+      name,
+      images,
+    });
 
-    // Update products with the new category name
-    await Product.updateMany({ category: name }, { category: name });
+    if (!updatedCategory) {
+      return NextResponse.json(
+        { message: 'Category not found' },
+        { status: 404 }
+      );
+    }
+
+    // Find products with the old category name
+    const productsToUpdate = await Product.find({
+      category: updatedCategory.name,
+    });
+
+    // Update category for products
+    await Promise.all(
+      productsToUpdate.map(async (product) => {
+        product.category = name; // Update to the new category name
+        await product.save();
+      })
+    );
 
     return NextResponse.json({ message: 'Category Edited successfully' });
   } catch (error) {
