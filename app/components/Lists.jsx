@@ -186,7 +186,7 @@ const Lists = ({ list = [], headers, type, editCategory }) => {
                   {type !== 'Orders' ? list.name : list._id}
                 </p>
                 <p
-                  className={`my-auto text-left flex-1 lg:block hidden overflow-hidden whitespace  -nowrap text-ellipsis max-w-[32rem] ${
+                  className={`my-auto text-left flex-1 lg:block hidden overflow-hidden whitespace  text-nowrap text-ellipsis max-w-[32rem] ${
                     type === 'Orders' && 'text-sm'
                   }`}
                 >
@@ -302,7 +302,8 @@ const Lists = ({ list = [], headers, type, editCategory }) => {
                     <button
                       className=" bg-green-400 border flex gap-1 border-black select-none hover:opacity-85  transition-opacity  sm:p-2 p-3 px-2"
                       draggable={false}
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault();
                         editCategory(list._id, list.name, list.images);
                       }}
                     >
