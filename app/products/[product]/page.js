@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import Topbar from '../../components/Topbar';
 import EditProductsForm from '../../components/EditProductsForm';
 import Link from 'next/link';
-
+import Spinner from './Spinner';
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [productData, setProductData] = useState(null);
@@ -38,6 +38,17 @@ const ProductPage = () => {
       }
     }
   }, [productId, products]);
+
+  if (!products) {
+    return (
+      <Spinner
+        message={` ${pathName === '/' ? 'Profits' : ''} ${
+          pathName.split('/')[1].charAt(0).toUpperCase() +
+          pathName.split('/')[1].slice(1)
+        }... `}
+      />
+    );
+  }
 
   return (
     <Layout>
