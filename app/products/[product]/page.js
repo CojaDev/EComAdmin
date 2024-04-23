@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import Topbar from '../../components/Topbar';
 import EditProductsForm from '../../components/EditProductsForm';
 import Link from 'next/link';
-import Spinner from './Spinner';
+import Spinner from '../../components/Spinner';
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [productData, setProductData] = useState(null);
