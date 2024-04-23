@@ -8,7 +8,6 @@ import EditProductsForm from '../../components/EditProductsForm';
 import Link from 'next/link';
 
 const ProductPage = () => {
-  const [opacity, setOpacity] = useState(0);
   const [products, setProducts] = useState([]);
   const [productData, setProductData] = useState(null);
   const [exists, setExist] = useState(false);
@@ -39,13 +38,7 @@ const ProductPage = () => {
       }
     }
   }, [productId, products]);
-  if (opacity !== 1) {
-    useEffect(() => {
-      setTimeout(() => {
-        setOpacity(opacity + 0.05);
-      }, 200);
-    });
-  }
+
   return (
     <Layout>
       <div className="w-full min-h-screen flex flex-col">
@@ -58,10 +51,7 @@ const ProductPage = () => {
               <EditProductsForm {...productData} />
             </>
           ) : (
-            <div
-              className="flex flex-col h-full justify-center items-center transition-opacity"
-              style={{ opacity: `${opacity}` }}
-            >
+            <div className="flex flex-col h-full justify-center items-center transition-opacity">
               <p className="text-5xl text-center -mt-28">
                 404 - Product not found
               </p>

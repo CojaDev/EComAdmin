@@ -164,7 +164,7 @@ const Lists = ({ list = [], headers, type, editCategory }) => {
                   />
                 )}
                 <p
-                  className={`my-auto text-left flex-1 overflow-hidden whitespace-nowrap text-ellipsis ${
+                  className={`my-auto text-left flex-1 text-nowrap overflow-hidden whitespace-nowrap text-ellipsis ${
                     list.images &&
                     list.images.length > 0 &&
                     list.images[0] !== ''

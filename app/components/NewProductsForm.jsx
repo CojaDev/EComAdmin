@@ -122,7 +122,10 @@ const NewProductsForm = () => {
               return (
                 <button
                   className="flex flex-col gap-2 w-24 min-w-24 min-h-24 h-24 border cursor-pointer items-center justify-center border-black hover:bg-black/5 transition-colors"
-                  onClick={() => open()}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    open();
+                  }}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
