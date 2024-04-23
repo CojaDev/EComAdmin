@@ -1,16 +1,17 @@
-'use client';
 import axios from 'axios';
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect } from 'react';
 import Layout from '../../components/Layout';
 import { usePathname } from 'next/navigation';
 import Topbar from '../../components/Topbar';
 import EditProductsForm from '../../components/EditProductsForm';
 import Link from 'next/link';
 import Spinner from '../../components/Spinner';
+
 const ProductPage = () => {
   const [products, setProducts] = useState([]);
   const [productData, setProductData] = useState(null);
   const [exists, setExist] = useState(false);
+  const [loading, setLoading] = useState(true); // New loading state
   const pathname = usePathname();
   const productId = pathname.split('/')[2];
 
@@ -19,9 +20,11 @@ const ProductPage = () => {
       .get('/api/products')
       .then((response) => {
         setProducts(response.data);
+        setLoading(false); // Data fetched, loading complete
       })
       .catch((error) => {
         console.error('Error fetching products:', error);
+        setLoading(false); // Error occurred, loading complete
       });
   }, []);
 
@@ -39,12 +42,12 @@ const ProductPage = () => {
     }
   }, [productId, products]);
 
-  if (!products) {
+  if (loading) {
     return (
       <Spinner
-        message={` ${pathName === '/' ? 'Profits' : ''} ${
-          pathName.split('/')[1].charAt(0).toUpperCase() +
-          pathName.split('/')[1].slice(1)
+        message={` ${pathname === '/' ? 'Profits' : ''} ${
+          pathname.split('/')[1].charAt(0).toUpperCase() +
+          pathname.split('/')[1].slice(1)
         }... `}
       />
     );
