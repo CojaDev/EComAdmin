@@ -45,6 +45,7 @@ export async function POST(request) {
       expenses,
       images,
       colors,
+      quantity,
       sizes,
     } = await request.json();
     const newProduct = new Product({
@@ -56,6 +57,7 @@ export async function POST(request) {
       images,
       colors,
       sizes,
+      quantity,
       index: products.length,
     });
     await newProduct.save();
@@ -78,6 +80,7 @@ export async function PUT(request) {
     const price = formData.get('price');
     const expenses = formData.get('expenses');
     const category = formData.get('category');
+    const quantity = formData.get('quantity');
     const colors = formData.getAll('colors');
     const colorsArray = colors.flatMap((colorString) => colorString.split(','));
     const sizes = formData.getAll('sizes');
@@ -94,6 +97,7 @@ export async function PUT(request) {
         price,
         expenses,
         category,
+        quantity,
         sizes: sizesArray,
         colors: colorsArray,
         images: imagesArray,

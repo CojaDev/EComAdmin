@@ -60,7 +60,7 @@ const FirstTime = () => {
   };
 
   return (
-    <div className="w-screen h-screen -m-4  flex items-center justify-center">
+    <div className="font-sans w-screen h-screen -m-4  flex items-center justify-center">
       <div
         className="flex flex-col overflow-hidden bg-black max-w-[58rem] w-[58rem] h-full lg:h-[35rem] lg:max-h-[35rem] max-h-full px-7 py-7 text-white lg:rounded-3xl rounded-none bg-right-bottom"
         style={{

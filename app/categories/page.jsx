@@ -8,6 +8,7 @@ import axios from 'axios';
 import Lists from '../components/Lists';
 import { catTITLES } from '../constants/Headers';
 import { toast } from 'react-hot-toast';
+import Spinner from '../components/Spinner';
 export default function Home() {
   const [Categories, setCategories] = useState([]);
   const [ID, setID] = useState('');
@@ -16,15 +17,18 @@ export default function Home() {
   const [AddingNew, setAddingNew] = useState(false);
   const [Image, setImage] = useState('');
   const [Editing, setEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
       .get('/api/categories')
       .then((response) => {
         setCategories(response.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching products:', error);
+        setLoading(false);
       });
   }, []);
 
@@ -79,6 +83,9 @@ export default function Home() {
   const handleImageUpload = (result) => {
     setImage(result.info.secure_url);
   };
+  if (loading) {
+    return <Spinner message={`Categories... `} />;
+  }
   return (
     <>
       <Layout>

@@ -18,7 +18,17 @@ const storeSchema = new Schema({
     required: false,
     trim: true,
   },
+  email: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   currency: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  aboutUs: {
     type: String,
     required: true,
     trim: true,
@@ -62,6 +72,34 @@ const storeSchema = new Schema({
     required: false,
     trim: true,
   },
+  specialPage: [
+    {
+      name: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      text: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+    },
+  ],
+  faq: [
+    {
+      question: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+      answer: {
+        type: String,
+        required: true,
+        trim: true,
+      },
+    },
+  ],
 });
 
 storeSchema.index({ name: 1 });

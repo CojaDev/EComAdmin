@@ -14,6 +14,7 @@ const NewProductsForm = () => {
   const colorInput = useRef();
   const priceInput = useRef();
   const expensesInput = useRef();
+  const quantityInput = useRef();
   useEffect(() => {
     axios
       .get('/api/categories')
@@ -36,6 +37,7 @@ const NewProductsForm = () => {
     const sizes = Sizes;
     const price = priceInput.current.value.toString();
     const expenses = expensesInput.current.value.toString();
+    const quantity = quantityInput.current.value.toString();
     const images = Images;
 
     const data = {
@@ -46,6 +48,7 @@ const NewProductsForm = () => {
       expenses,
       colors,
       sizes,
+      quantity,
       images,
     };
 
@@ -294,6 +297,16 @@ const NewProductsForm = () => {
             />
           </div>
         </div>
+      </div>
+      <div className="quantity flex flex-col gap-2 w-[50%] pr-1">
+        <p>Quantity</p>
+        <input
+          ref={quantityInput}
+          type="number"
+          className="w-full inputs"
+          placeholder="Quantity"
+          required
+        />
       </div>
       <button
         type="submit"

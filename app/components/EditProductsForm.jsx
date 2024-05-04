@@ -9,6 +9,7 @@ const EditProductsForm = ({
   description,
   price,
   expenses,
+  quantity,
   category,
   images,
   sizes,
@@ -19,6 +20,7 @@ const EditProductsForm = ({
   const [productDescription, setProductDescription] = useState(description);
   const [productPrice, setProductPrice] = useState(price.toString());
   const [Expenses, setExpenses] = useState(expenses.toString());
+  const [Quantity, setQuantity] = useState(quantity);
   const [Categories, setCategories] = useState([{ name: 'No Category' }]);
   const [Images, setImages] = useState(images);
   const sizeInput = useRef();
@@ -58,6 +60,7 @@ const EditProductsForm = ({
     formData.append('colors', Colors);
     formData.append('price', productPrice);
     formData.append('expenses', Expenses);
+    formData.append('quantity', Quantity);
     formData.append('_id', _id);
 
     formData.append('images', Images);
@@ -320,13 +323,24 @@ const EditProductsForm = ({
             <input
               type="number"
               value={Expenses}
-              className="w-full inputs"
               onChange={(e) => setExpenses(e.target.value)}
+              className="w-full inputs"
               placeholder={expenses}
               required
             />
           </div>
         </div>
+      </div>
+      <div className="quantity flex flex-col gap-2 w-[50%] pr-1">
+        <p>Quantity</p>
+        <input
+          value={Quantity}
+          onChange={(e) => setQuantity(e.target.value)}
+          type="number"
+          className="w-full inputs"
+          placeholder="Quantity"
+          required
+        />
       </div>
       <div className="flex justify-between items-center gap-2">
         <button

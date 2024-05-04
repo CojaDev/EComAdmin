@@ -3,23 +3,34 @@ import Link from 'next/link';
 import Topbar from '../components/Topbar';
 import Layout from '../components/Layout';
 import Lists from '../components/Lists';
+import Spinner from '../components/Spinner';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { ProdTITLES } from '../constants/Headers';
 export default function Home() {
   const [Products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
       .get(`/api/products`)
       .then((response) => {
         setProducts(response.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching products:', error);
+        setLoading(false);
       });
   }, []);
-
+  if (loading) {
+    return (
+      <Spinner
+        message={`Products
+        ... `}
+      />
+    );
+  }
   return (
     <Layout>
       <div className="w-full h-screen flex flex-col">

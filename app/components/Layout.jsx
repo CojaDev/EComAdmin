@@ -38,13 +38,13 @@ export default function Layout({ children }) {
         ) : (
           <>
             {Firsttime === true ? (
-              <main className=" sm:pl-[15rem] pl-[3.55rem] w-screen h-screen  bg-slate-200/10 overflow-x-hidden flex">
+              <main className="font-sans sm:pl-[15rem] pl-[3.55rem] w-screen h-screen  bg-slate-200/10 overflow-x-hidden flex">
                 <Nav />
                 {children}
               </main>
             ) : (
               <main
-                className="w-screen h-screen overflow-x-hidden flex"
+                className="font-sans w-screen h-screen overflow-x-hidden flex"
                 style={{
                   backgroundImage: `url(/bg.jpg)`,
                   backgroundRepeat: 'repeat',
@@ -63,7 +63,7 @@ export default function Layout({ children }) {
   return (
     <>
       <main
-        className="w-screen h-screen  flex items-center relative"
+        className="font-sans w-screen h-screen  flex items-center relative"
         style={{
           backgroundImage: `url(/bg.jpg)`,
           backgroundRepeat: 'repeat',
