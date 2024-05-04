@@ -28,7 +28,7 @@ const storeSchema = new Schema({
     required: true,
     trim: true,
   },
-  aboutUs: {
+  logo: {
     type: String,
     required: true,
     trim: true,

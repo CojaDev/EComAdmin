@@ -129,8 +129,8 @@ const Lists = ({ list = [], headers, type, editCategory }) => {
           </div>
         ) : (
           filteredList.map((list, index) => (
-            <div key={index}>
-              <div className="flex  bg-white gap-2 p-2 text-center justify-between items-center">
+            <div className="Lists" key={index}>
+              <div className="flex  bg-white hover:bg-gray-200 gap-2 p-2 text-center justify-between items-center transition-all">
                 {type !== 'Category' &&
                   list.images &&
                   list.images.length > 0 &&

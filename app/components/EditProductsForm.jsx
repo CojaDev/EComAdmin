@@ -222,8 +222,12 @@ const EditProductsForm = ({
       <div className="flex flex-col gap-1">
         <p>Description</p>
         <textarea
-          className="w-full inputs max-h-[10rem] min-h-[4rem]"
-          placeholder={description}
+          className={`w-full inputs max-h-[12rem]  ${
+            description === ''
+              ? ' min-h-[2.25rem] h-[2.25rem]'
+              : ' min-h-[6.7rem]'
+          } `}
+          placeholder={description === '' ? 'Description' : { description }}
           value={productDescription}
           onChange={(e) => setProductDescription(e.target.value)}
         />
@@ -339,7 +343,6 @@ const EditProductsForm = ({
           type="number"
           className="w-full inputs"
           placeholder="Quantity"
-          required
         />
       </div>
       <div className="flex justify-between items-center gap-2">

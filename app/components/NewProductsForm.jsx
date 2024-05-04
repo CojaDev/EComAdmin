@@ -305,7 +305,6 @@ const NewProductsForm = () => {
           type="number"
           className="w-full inputs"
           placeholder="Quantity"
-          required
         />
       </div>
       <button
