@@ -275,7 +275,7 @@ const Settings = () => {
                 <p>Currency</p>
                 <select
                   className="w-full inputs"
-                  name="Currency"
+                  name="currency"
                   value={storeData.currency}
                   onChange={handleChange}
                 >
