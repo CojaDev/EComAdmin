@@ -1,6 +1,13 @@
 # E-commerce Admin
 
 ![E-commerce Store](ecom.png)
+<p align="center">
+  <img src="ecom2.png" alt="Screenshot 2" width="180">
+  <img src="ecom3.png" alt="Screenshot 2" width="180">
+  <img src="ecom4.png" alt="Screenshot 2" width="180">
+  <img src="ecom5.png" alt="Screenshot 2" width="180">
+
+</p>
 
 This project is a comprehensive e-commerce platform with separate websites for the admin and the shop. The admin site allows for managing products, orders, and user information, while the shop site provides a user-friendly interface for customers to browse and purchase products.
 
