@@ -2,10 +2,10 @@
 
 ![E-commerce Store](ecom.png)
 <p align="center">
-  <img src="ecom2.png" alt="Screenshot 2" width="250">
-  <img src="ecom3.png" alt="Screenshot 3" width="250">
-  <img src="ecom4.png" alt="Screenshot 4" width="250">
-  <img src="ecom5.png" alt="Screenshot 5" width="250">
+  <img src="ecom2.png" alt="Screenshot 2" width="240">
+  <img src="ecom3.png" alt="Screenshot 3" width="240">
+  <img src="ecom4.png" alt="Screenshot 4" width="240">
+  <img src="ecom5.png" alt="Screenshot 5" width="240">
 
 </p>
 
