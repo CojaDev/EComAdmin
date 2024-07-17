@@ -1,5 +1,11 @@
 # E-commerce Admin
-
+ <iframe
+                          src="https://ecom-front-coja.vercel.app/"
+                          width={1080}
+                          height={1920}
+                          title="Ecom Website"
+                          style={{ border: 'none' }}
+                        ></iframe>
 ![E-commerce Store](ecom.png)
 <p >
   <img src="ecom2.png" alt="Screenshot 2" width="245">
