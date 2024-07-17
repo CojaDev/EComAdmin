@@ -1,5 +1,5 @@
 # E-commerce Admin
-<p >
+<p>
   <img src="ecom2.png" alt="Screenshot 2" width="245">
   <img src="ecom3.png" alt="Screenshot 3" width="245">
   <img src="ecom4.png" alt="Screenshot 4" width="245">
