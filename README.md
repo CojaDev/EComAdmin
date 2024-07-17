@@ -1,4 +1,7 @@
 # E-commerce Admin
+
+![E-commerce Store](ecom.png)
+
 <p>
   <img src="ecom2.png" alt="Screenshot 2" width="245">
   <img src="ecom3.png" alt="Screenshot 3" width="245">
