@@ -28,13 +28,15 @@ const handler = NextAuth({
   secret: process.env.SECRET,
   callbacks: {
     session: ({ session, token, user }) => {
-      if (emails.includes(session?.user?.email)) {
-        return session;
-      } else if (session?.user?.email === 'amarcetic04@gmail.com') {
-        return session;
-      } else {
-        return false;
-      }
+       return session;
+//disabled admin user check for demo purposes      if (emails.includes(session?.user?.email)) {
+ //       return session;
+//} else if (session?.user?.email === 'amarcetic04@gmail.com') {
+ //       return session;
+//} else {
+  //      return false;
+  //    }
+      
     },
   },
 });
